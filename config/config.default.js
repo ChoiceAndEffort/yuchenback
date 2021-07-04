@@ -26,11 +26,11 @@ module.exports = appInfo => {
 
     port: 3306,
 
-    database: 'school',
+    database: 'yuchen',
 
     username: 'root',
 
-    password: 'root',
+    password: '123456',
 
   };
   config.security = {
