@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (app) => {
-  const { STRING, INTEGER } = app.Sequelize;
+  const { STRING, INTEGER, TEXT, } = app.Sequelize;
 
   const CompanyNews = app.model.define(
     "company_news",
@@ -12,8 +12,8 @@ module.exports = (app) => {
         autoIncrement: true,
       },
       title: STRING(100),
-      headerImg: STRING(1000),
-      news: STRING(40),
+      headerImg: STRING(1024),
+      news: TEXT,
       date: STRING(32),
       type: INTEGER,
     },
@@ -24,4 +24,4 @@ module.exports = (app) => {
   );
 
   return CompanyNews;
-}
+};

@@ -8,14 +8,20 @@ class CompanyNewsController extends Controller {
   async index() {
     const { ctx } = this;
     // 获取get请求的数据,通过query的方式获取数据
-    const { page = 1, pageSize = 5, type } = ctx.query;
+    const { page = 1, pageSize = 5, type = "" } = ctx.query;
+    let where;
+    if (type) {
+      where = {
+        type,
+      };
+    } else {
+      where = null;
+    }
     // 分页查询
     const user = await ctx.model.CompanyNews.findAndCountAll({
       offset: parseInt((page - 1) * pageSize),
       limit: parseInt(pageSize),
-      where: {
-        type,
-      },
+      where,
       distinct: true,
     });
     ctx.status = 200;
@@ -32,8 +38,8 @@ class CompanyNewsController extends Controller {
     const { ctx } = this;
     //     如上面例子中的 ctx.request.query.id 和 ctx.query.id 是等价的，ctx.response.body= 和 ctx.body= 是等价的。
     // 需要注意的是，获取 POST 的 body 应该使用 ctx.request.body，而不是 ctx.body。
-    const { name, time, emperor, city } = ctx.request.body;
-    const haveData = await ctx.model.Emperors.findAll({ where: { name } });
+    const { title, type, headerImg, news, date } = ctx.request.body;
+    const haveData = await ctx.model.CompanyNews.findAll({ where: { title } });
     if (haveData && haveData.length) {
       ctx.status = 200;
       ctx.body = {
@@ -42,7 +48,7 @@ class CompanyNewsController extends Controller {
       };
       return;
     }
-    const res = await ctx.model.Emperors.create({ name, time, emperor, city });
+    const res = await ctx.model.CompanyNews.create({title, type, headerImg, news, date });
     if (!res) {
       ctx.status = 20001; // 操作数据库失败
       return;
@@ -60,7 +66,7 @@ class CompanyNewsController extends Controller {
     // 需要注意的是，获取 POST 的 body 应该使用 ctx.request.body，而不是 ctx.body。
     const { id } = ctx.request.body;
     // 通过主键来查询一条记录
-    const user = await ctx.model.Emperors.findByPk(id);
+    const user = await ctx.model.CompanyNews.findByPk(id);
     if (!user) {
       ctx.body = {
         status: 404,
@@ -82,7 +88,7 @@ class CompanyNewsController extends Controller {
     const { id } = ctx.request.body;
     const data = Object.assign({}, ctx.request.body);
     delete data.id;
-    const user = await ctx.model.Emperors.findByPk(id);
+    const user = await ctx.model.CompanyNews.findByPk(id);
     if (!user) {
       ctx.body = {
         status: 404,

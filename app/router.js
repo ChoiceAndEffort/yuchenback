@@ -9,6 +9,9 @@ module.exports = (app) => {
   router.get("/", controller.home.index);
   router.get("/api/companyNews/list", controller.companyNews.index);
   router.get("/api/companyNews/detail", controller.companyNews.findOne);
+  router.post("/api/companyNews/addNews", controller.companyNews.create);
+  router.post("/api/companyNews/updateNews", controller.companyNews.update);
+  router.post("/api/companyNews/deleteNews", controller.companyNews.delete);
 
   router.get("/api/moduleOne/findConfig", controller.checked.index);
   router.post("/api/moduleOne/updateConfig", controller.checked.update);
