@@ -40,7 +40,7 @@ module.exports = (appInfo) => {
 
   //解决跨域
   config.cors = {
-    origin: 'http://hubeiyuchen.asia',
+    origin: '*',
     allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH",
   };
 
