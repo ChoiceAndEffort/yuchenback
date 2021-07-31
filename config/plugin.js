@@ -6,7 +6,12 @@ module.exports = {
   // static: {
   //   enable: true,
   // }
-
+  
+  //开启跨域
+  cors: {
+	  enable: true,
+	  package: 'egg-cors'
+	},
 
   // 开启egg-mysql插件
   sequelize: {
