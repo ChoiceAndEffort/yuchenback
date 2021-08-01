@@ -19,6 +19,7 @@ class CompanyNewsController extends Controller {
     }
     // 分页查询
     const user = await ctx.model.CompanyNews.findAndCountAll({
+      order: [[ 'id', 'DESC' ]],//以id倒叙
       offset: parseInt((page - 1) * pageSize),
       limit: parseInt(pageSize),
       where,
@@ -48,7 +49,13 @@ class CompanyNewsController extends Controller {
       };
       return;
     }
-    const res = await ctx.model.CompanyNews.create({title, type, headerImg, news, date });
+    const res = await ctx.model.CompanyNews.create({
+      title,
+      type,
+      headerImg,
+      news,
+      date,
+    });
     if (!res) {
       ctx.status = 20001; // 操作数据库失败
       return;
